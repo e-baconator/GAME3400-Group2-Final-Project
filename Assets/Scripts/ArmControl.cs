@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ArmControl : MonoBehaviour
 {
-    [SerializeField] private int mouseButton;
+    [SerializeField] private string key;
     private Transform arm;
     private bool raised, moving = false;
     private float angle = -55;
@@ -17,7 +17,7 @@ public class ArmControl : MonoBehaviour
     {
         arm.localRotation = Quaternion.Euler(angle, 0, 0);
 
-        if (Input.GetMouseButtonDown(mouseButton) && moving == false)
+        if (Input.GetKeyDown(key) && moving == false)
         {
             moving = true;
         }
