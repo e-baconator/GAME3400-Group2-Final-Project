@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (standUp)
-            transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * 1f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * 1.5f, transform.position.z);
     }
 
     private IEnumerator getUp()
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, look.x, 0);
         yield return new WaitForSeconds(1.5f);
         standUp = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         standUp = false;
         rb.isKinematic = false;
         cc.enabled = true;
