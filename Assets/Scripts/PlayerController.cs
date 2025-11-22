@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private GameObject arms;
     [SerializeField] private Image fadeIn;
 
     [SerializeField] private Transform cameraTransform;
@@ -85,7 +84,6 @@ public class PlayerController : MonoBehaviour
         standUp = false;
         rb.isKinematic = false;
         cc.enabled = true;
-        arms.SetActive(true);
         standing = true;
     }
 }

@@ -1,12 +1,17 @@
+using System;
 using System.Drawing;
 using UnityEngine;
 
 public class ArmControl : MonoBehaviour
 {
     [SerializeField] private string key;
+
     private Transform arm;
-    private bool raised, moving = false;
+    
     private float angle = -55;
+
+    private bool raised, moving = false;
+    public bool active = true;
 
     private void Start()
     {
@@ -17,7 +22,7 @@ public class ArmControl : MonoBehaviour
     {
         arm.localRotation = Quaternion.Euler(angle, 0, 0);
 
-        if (Input.GetKeyDown(key) && moving == false)
+        if (Input.GetKeyDown(key) && !moving && active)
         {
             moving = true;
         }
