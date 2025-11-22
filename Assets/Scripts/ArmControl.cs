@@ -10,7 +10,8 @@ public class ArmControl : MonoBehaviour
     
     private float angle = -55;
 
-    private bool raised, moving = false;
+    public bool raised = false;
+    private bool moving = false;
     public bool active = true;
 
     private void Start()
