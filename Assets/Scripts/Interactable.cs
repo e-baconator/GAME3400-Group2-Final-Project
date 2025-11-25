@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 
 public class Interactable : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string obj;
 
     public bool activated = false;
+    private bool carrying, openDoor;
 
     private void Start()
     {
@@ -51,6 +53,7 @@ public class Interactable : MonoBehaviour
                 moveable.localRotation = Quaternion.Euler(90, 150, 0);
                 moveable.localPosition = new Vector3(0.61f, 0, -0.309f);
                 enableObject.SetActive(true);
+                activated = true;
             }
             else
             {
@@ -77,6 +80,37 @@ public class Interactable : MonoBehaviour
                 transform.parent = rightArm.transform;
                 transform.localPosition = new Vector3(0, -0.68f, 0.033f);
                 transform.localScale = new Vector3(1, 1, 1);
+                carrying = true;
+            }
+        }
+
+        if (obj == "Door")
+        {
+            if (leftArm.raised && !activated)
+            {
+                openDoor = true;
+                activated = true;
+            }
+        }
+
+        if (obj == "Locked Door")
+        {
+            if (leftArm.raised && !activated)
+            {
+                //source.Play();
+                activated = true;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (obj == "Door" && openDoor)
+        {
+            moveable.position = new Vector3(moveable.position.x, moveable.position.y + Time.deltaTime * 5, moveable.position.z);
+            if (moveable.position.y >= 3.875f)
+            {
+                openDoor = false;
             }
         }
     }
