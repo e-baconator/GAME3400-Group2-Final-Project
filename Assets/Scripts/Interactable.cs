@@ -64,6 +64,21 @@ public class Interactable : MonoBehaviour
             //source.Play();
             Destroy(gameObject);
         }
+
+        if (obj == "Baby")
+        {
+            if (!rightArm.raised)
+            {
+                StartCoroutine(DisplayText());
+                rightArm.active = true;
+            }
+            else
+            {
+                transform.parent = rightArm.transform;
+                transform.localPosition = new Vector3(0, -0.68f, 0.033f);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
     }
 
     private IEnumerator DisplayText()
