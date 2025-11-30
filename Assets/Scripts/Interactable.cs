@@ -29,12 +29,13 @@ public class Interactable : MonoBehaviour
             source = GetComponent<AudioSource>();
         else
             source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
-        if (iclips.Length != 0)
-            source.clip = iclips[0];
     }
 
     public void Interact()
     {
+        if (iclips.Length != 0)
+            source.clip = iclips[0];
+
         if (obj == "ID Card")
         {
             transform.parent = leftArm.transform;
@@ -50,6 +51,7 @@ public class Interactable : MonoBehaviour
         {
             if (leftArm.raised)
             {
+                source.Play();
                 moveable.localRotation = Quaternion.Euler(90, 150, 0);
                 moveable.localPosition = new Vector3(0.61f, 0, -0.309f);
                 enableObject.SetActive(true);
@@ -90,6 +92,7 @@ public class Interactable : MonoBehaviour
             {
                 openDoor = true;
                 activated = true;
+                source.Play();
             }
         }
 
@@ -97,7 +100,7 @@ public class Interactable : MonoBehaviour
         {
             if (leftArm.raised && !activated)
             {
-                //source.Play();
+                source.Play();
                 activated = true;
             }
         }
@@ -107,7 +110,7 @@ public class Interactable : MonoBehaviour
     {
         if (obj == "Door" && openDoor)
         {
-            moveable.position = new Vector3(moveable.position.x, moveable.position.y + Time.deltaTime * 5, moveable.position.z);
+            moveable.position = new Vector3(moveable.position.x, moveable.position.y + Time.deltaTime * 4, moveable.position.z);
             if (moveable.position.y >= 3.875f)
             {
                 openDoor = false;
