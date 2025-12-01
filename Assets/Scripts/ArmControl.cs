@@ -8,7 +8,7 @@ public class ArmControl : MonoBehaviour
 
     private Transform arm;
     
-    private float angle = -55;
+    private float angle = -50;
 
     public bool raised = false;
     private bool moving = false;
@@ -34,8 +34,8 @@ public class ArmControl : MonoBehaviour
                 angle -= Time.deltaTime * 180;
             else
                 angle += Time.deltaTime * 180;
-            angle = Mathf.Clamp(angle, -90, -55);
-            if (angle == -55)
+            angle = Mathf.Clamp(angle, -90, -50);
+            if (angle == -50)
             {
                 raised = false;
                 moving = false;
