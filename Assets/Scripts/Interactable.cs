@@ -57,10 +57,9 @@ public class Interactable : MonoBehaviour
             if (leftArm.raised)
             {
                 source.Play();
-                moveable.localRotation = Quaternion.Euler(90, 150, 0);
-                moveable.localPosition = new Vector3(0.61f, 0, -0.309f);
-                enableObject.SetActive(true);
+                openDoor = true;
                 activated = true;
+                //enableObject.SetActive(true);
             }
             else
             {
@@ -118,6 +117,16 @@ public class Interactable : MonoBehaviour
             moveable.localRotation = Quaternion.Euler(0, angle, 0);
             angle -= Time.deltaTime * 135;
             if (angle <= -105)
+            {
+                openDoor = false;
+            }
+        }
+
+        if (obj == "Locker" && openDoor)
+        {
+            moveable.localRotation = Quaternion.Euler(-90, angle, 0);
+            angle += Time.deltaTime * 225;
+            if (angle >= 180)
             {
                 openDoor = false;
             }
