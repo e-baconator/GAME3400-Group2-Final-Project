@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private string obj;
 
+    private float angle;
+
     public bool activated = false;
     private bool carrying, openDoor;
 
@@ -29,6 +32,8 @@ public class Interactable : MonoBehaviour
             source = GetComponent<AudioSource>();
         else
             source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        if (moveable != null)
+            angle = moveable.localRotation.y;
     }
 
     public void Interact()
@@ -110,8 +115,9 @@ public class Interactable : MonoBehaviour
     {
         if (obj == "Door" && openDoor)
         {
-            moveable.position = new Vector3(moveable.position.x, moveable.position.y + Time.deltaTime * 4, moveable.position.z);
-            if (moveable.position.y >= 3.875f)
+            moveable.localRotation = Quaternion.Euler(0, angle, 0);
+            angle -= Time.deltaTime * 135;
+            if (angle <= -105)
             {
                 openDoor = false;
             }
