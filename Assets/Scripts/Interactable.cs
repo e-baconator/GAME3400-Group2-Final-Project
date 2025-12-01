@@ -45,9 +45,9 @@ public class Interactable : MonoBehaviour
         {
             transform.parent = leftArm.transform;
             leftArm.active = true;
-            transform.localPosition = new Vector3(0, -0.68f, 0.033f);
-            transform.localRotation = Quaternion.Euler(77.579f, 0, 0);
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localPosition = new Vector3(-0.00999999978f, -0.584999979f, 0.0489999987f);
+            transform.localRotation = Quaternion.Euler(5.50110531f, 336.517334f, 275.138123f);
+            transform.localScale = new Vector3(1.4f, 1, 1.4f);
             activated = true;
             StartCoroutine(DisplayText());
         }
