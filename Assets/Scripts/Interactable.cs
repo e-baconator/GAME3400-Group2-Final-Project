@@ -7,8 +7,7 @@ using UnityEngine.ProBuilder.Shapes;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] private GameObject enableObject;
-
+    [SerializeField] private BoxCollider enableObject;
     [SerializeField] private Transform moveable;
     [SerializeField] public string itext;
     [SerializeField] private AudioClip[] iclips;
@@ -59,18 +58,18 @@ public class Interactable : MonoBehaviour
                 source.Play();
                 openDoor = true;
                 activated = true;
-                //enableObject.SetActive(true);
+                enableObject.enabled = true;
             }
             else
             {
-                print("Gotta get my ID Card fr");
-                //source.Play();
+                source.clip = iclips[1];
+                source.Play();
             }
         }
 
         if (obj == "Gas Mask")
         {
-            //source.Play();
+            source.Play();
             Destroy(gameObject);
         }
 
