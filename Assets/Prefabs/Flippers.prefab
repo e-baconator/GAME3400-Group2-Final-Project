@@ -93,10 +93,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 79.644
       objectReference: {fileID: 0}
+    - target: {fileID: 718193921643153591, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 18cd69d51defbe74c940251e3c2e282f, type: 2}
     - target: {fileID: 919132149155446097, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
       propertyPath: m_Name
       value: Flipper
       objectReference: {fileID: 0}
+    - target: {fileID: 2902008074560218088, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0854
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902008074560218088, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901893356585517859, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c0c79e0a437bb3488f39d2f6d724283, type: 2}
+    - target: {fileID: 8913987742362513620, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c0c79e0a437bb3488f39d2f6d724283, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -167,10 +187,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 79.644
       objectReference: {fileID: 0}
+    - target: {fileID: 718193921643153591, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 18cd69d51defbe74c940251e3c2e282f, type: 2}
     - target: {fileID: 919132149155446097, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
       propertyPath: m_Name
       value: Flipper (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2902008074560218088, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0854
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902008074560218088, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0048
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902008074560218088, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901893356585517859, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c0c79e0a437bb3488f39d2f6d724283, type: 2}
+    - target: {fileID: 8913987742362513620, guid: 803f70a3af07f6d44b9f03787a9e38a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c0c79e0a437bb3488f39d2f6d724283, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
