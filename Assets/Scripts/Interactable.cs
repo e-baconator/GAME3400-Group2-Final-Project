@@ -73,8 +73,10 @@ public class Interactable : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (obj == "Baby")
+        if (obj == "babyalien")
         {
+            var audio = GetComponent<BabyAlienAudio>();
+
             if (!rightArm.raised)
             {
                 StartCoroutine(DisplayText());
@@ -82,10 +84,14 @@ public class Interactable : MonoBehaviour
             }
             else
             {
+
+                
                 transform.parent = rightArm.transform;
                 transform.localPosition = new Vector3(0, -0.68f, 0.033f);
                 transform.localScale = new Vector3(1, 1, 1);
                 carrying = true;
+                if (audio != null)
+                    audio.PlayPickupSound();
             }
         }
 
@@ -106,6 +112,34 @@ public class Interactable : MonoBehaviour
                 source.Play();
                 activated = true;
             }
+        }
+        if (obj == "Vent")
+        {
+            if (!rightArm.raised)
+            {
+                StartCoroutine(DisplayText());
+                rightArm.active = true;
+            }
+         else
+            {
+                if (carrying)
+                {
+                    var alienAudio = rightArm.GetComponentInChildren<BabyAlienAudio>();
+                    if (alienAudio != null)
+                        alienAudio.PlayDropSound();
+
+                    transform.parent = null;
+                    carrying = false;
+                }
+
+                /*else
+                {
+                    play dialogue that says I'm too big for that
+                } 
+                */
+            }
+
+
         }
     }
 
@@ -138,5 +172,13 @@ public class Interactable : MonoBehaviour
         yield return new WaitForSeconds(5);
         if (UIText.text == itext)
             UIText.text = "";
+    }
+
+    private void OnMouseDown()
+    {
+        if (obj == "babyalien")
+        {
+            Interact();
+        }
     }
 }
