@@ -50,8 +50,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _CoatMask: 1
+    - _EmissiveIntensity: 75.09817
+    - _UseEmissiveIntensity: 1
     m_Colors:
     - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 75.09817}
+    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

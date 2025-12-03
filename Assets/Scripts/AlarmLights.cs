@@ -9,11 +9,11 @@ public class AlarmLights : MonoBehaviour
     void Update()
     {
         if (increasing)
-            intensity += Time.deltaTime * 11000;
+            intensity += Time.deltaTime * 6;
         else
-            intensity -= Time.deltaTime * 11000;
+            intensity -= Time.deltaTime * 6;
 
-        if (intensity >= 15000)
+        if (intensity >= 10)
             increasing = false;
         if (intensity <= .1f)
             increasing = true;
