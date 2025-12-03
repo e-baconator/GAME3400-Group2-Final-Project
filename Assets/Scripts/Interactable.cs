@@ -16,13 +16,14 @@ public class Interactable : MonoBehaviour
     private AudioSource source;
     private ArmControl leftArm, rightArm;
 
-    [SerializeField] private string obj;
+    [SerializeField] public string obj;
 
     private float angle, babySound;
 
     [SerializeField] private bool trigger;
     public bool activated = false;
-    private bool carrying, openDoor;
+    private static bool carrying;
+    private bool openDoor;
     private void Start()
     {
         UIText = GameObject.FindGameObjectWithTag("UIText").GetComponent<TextMeshProUGUI>();
@@ -33,7 +34,7 @@ public class Interactable : MonoBehaviour
         else
             source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
         if (moveable != null)
-            angle = moveable.localRotation.y;
+            angle = moveable.localRotation.eulerAngles.y;
         babySound = 15;
     }
 
@@ -99,6 +100,18 @@ public class Interactable : MonoBehaviour
             }
         }
 
+        if (obj == "Baby Alien 2" && !activated)
+        {
+            source.clip = iclips[1];
+            source.Play();
+            transform.parent = rightArm.transform;
+            transform.localPosition = new Vector3(-0.0638479963f, -0.251049995f, -0.233089998f);
+            transform.localRotation = Quaternion.Euler(304.517181f, 291.663849f, 217.653107f);
+            transform.localScale = new Vector3(0.189969525f, 0.189969525f, 0.189969525f);
+            carrying = true;
+            activated = true;
+        }
+
         if (obj == "Door")
         {
             if (leftArm.raised && !activated)
@@ -107,6 +120,13 @@ public class Interactable : MonoBehaviour
                 activated = true;
                 source.Play();
             }
+        }
+
+        if (obj == "Unlocked Door")
+        {
+            openDoor = true;
+            activated = true;
+            source.Play();
         }
 
         if (obj == "Locked Door")
@@ -126,13 +146,14 @@ public class Interactable : MonoBehaviour
             StartCoroutine(NextLine(1, 1, 1, 0));
         }
 
-        if (obj == "Vent")
+        if (obj == "Vent" && carrying && !activated)
         {
-            if (carrying)
-            {
-                transform.parent = null;
-                carrying = false;
-            }
+            source.Play();
+            GameObject.FindGameObjectWithTag("BabyAlien").GetComponent<Transform>().parent = null;
+            StartCoroutine(GetComponent<AlienVentScene>().AlienEnterVentSequence());
+            carrying = false;
+            activated = false;
+            StartCoroutine(NextLine(5, 2, 1, 3));
         }
 
         if (obj == "Cry Trigger")
@@ -168,6 +189,16 @@ public class Interactable : MonoBehaviour
             moveable.localRotation = Quaternion.Euler(0, angle, 0);
             angle -= Time.deltaTime * 135;
             if (angle <= -105)
+            {
+                openDoor = false;
+            }
+        }
+
+        if (obj == "Unlocked Door" && openDoor)
+        {
+            moveable.localRotation = Quaternion.Euler(0, angle, 0);
+            angle -= Time.deltaTime * 135;
+            if (angle <= -15)
             {
                 openDoor = false;
             }
@@ -209,6 +240,10 @@ public class Interactable : MonoBehaviour
         {
             yield return new WaitForSeconds(t);
             source.pitch = 1;
+            if (obj == "Vent" && n == 2)
+                source.pitch = 1.5f;
+            if (obj == "Vent" && n == 1)
+                enableObject.gameObject.GetComponent<Interactable>().Interact();
             source.clip = iclips[s];
             source.Play();
             s++;

@@ -1,22 +1,21 @@
+using System.Collections;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class AlienVentScene : MonoBehaviour
 {
     [SerializeField] private GameObject babyAlien;
     [SerializeField] private Transform ventLid;
 
-    private Vector3 babyStartPoint = new Vector3(-18.917f, 0.091f, 4.992f);
-    private Vector3 alienTargetPoint = new Vector3(-18.917f, 0.091f, 2.999f);
+    private Vector3 babyStartPoint = new Vector3(-21.9759998f, 0.547999978f, 4.31899977f);
+    private Vector3 alienTargetPoint = new Vector3(-21.9759998f, 0.547999978f, 2.86299992f);
 
     private float lidOpenAngle = 90f;
     private float lidAnimationSpeed = 2f;
     private float alienCrawlSpeed = 1.5f;
 
-    private bool isAnimating = false;
     private Quaternion lidClosedRotation;
     private Quaternion lidOpenRotation;
-
-    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,31 +24,9 @@ public class AlienVentScene : MonoBehaviour
         lidOpenRotation = lidClosedRotation * Quaternion.Euler(lidOpenAngle, 0, 0);
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator AlienEnterVentSequence()
     {
-        if (Input.GetMouseButtonDown(0) && !isAnimating)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.gameObject == gameObject)
-                {
-                    if (babyAlien != null)
-                    {
-                        StartCoroutine(AlienEnterVentSequence());
-                    }
-                }
-            }
-        }
-    }
-
-    System.Collections.IEnumerator AlienEnterVentSequence()
-    {
-        isAnimating = true;
-        
+        babyAlien.transform.localRotation = Quaternion.Euler(0, 180, 0);
         babyAlien.transform.position = babyStartPoint;
         yield return new WaitForSeconds(0.5f);
         
@@ -57,15 +34,17 @@ public class AlienVentScene : MonoBehaviour
         
         yield return StartCoroutine(CrawlToTarget(alienTargetPoint, alienCrawlSpeed));
         
-        babyAlien.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.3f);
         
         yield return StartCoroutine(CloseVent());
-        
-        isAnimating = false;
+
+        babyAlien.transform.localRotation = Quaternion.Euler(0, 354.157715f, 0);
+        babyAlien.transform.position = new Vector3(-22.5979996f, -0.31400001f, 3.41599989f);
+        babyAlien.GetComponent<Interactable>().activated = false;
+        babyAlien.GetComponent<Interactable>().obj = "Baby Alien 2";
     }
     
-    System.Collections.IEnumerator OpenVent()
+    private IEnumerator OpenVent()
     {
         float t = 0;
         while (t < 1)
@@ -76,7 +55,7 @@ public class AlienVentScene : MonoBehaviour
         }
     }
     
-    System.Collections.IEnumerator CloseVent()
+    private IEnumerator CloseVent()
     {
         float t = 0;
         while (t < 1)
@@ -87,14 +66,13 @@ public class AlienVentScene : MonoBehaviour
         }
     }
 
-    System.Collections.IEnumerator CrawlToTarget(Vector3 target, float speed)
+    private IEnumerator CrawlToTarget(Vector3 target, float speed)
     {
-        
+        babyAlien.GetComponent<Animator>().SetTrigger("scooting");
         while (Vector3.Distance(babyAlien.transform.position, target) > 0.1f)
         {
             babyAlien.transform.position = Vector3.MoveTowards(babyAlien.transform.position, target, speed * Time.deltaTime);
             yield return null;
         }
-        
     }
 }
