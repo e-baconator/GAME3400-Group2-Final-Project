@@ -119,6 +119,13 @@ public class Interactable : MonoBehaviour
             }
         }
 
+        if (obj == "Elevator Button")
+        {
+            source.Play();
+            activated = true;
+            StartCoroutine(NextLine(1, 1, 1, 0));
+        }
+
         if (obj == "Vent")
         {
             if (carrying)
@@ -140,6 +147,17 @@ public class Interactable : MonoBehaviour
             source.Play();
             StartCoroutine(NextLine(4, 1, 1, 0));
             activated = true;
+        }
+
+        if (obj == "Ending Trigger")
+        {
+            source.Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().standing = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().fadeOut = true;
+            StartCoroutine(NextLine(5, 1, 1, 0));
+            activated = true;
+            carrying = false;
         }
     }
 

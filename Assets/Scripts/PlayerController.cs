@@ -15,13 +15,14 @@ public class PlayerController : MonoBehaviour
     private AudioSource audio;
 
     public float lookSense = 1.5f;
-    private float moveSpeed = 5.5f;
+    private float moveSpeed = 4;
     private Vector2 look;
     private Vector3 move;
 
     private float horizontalInput, verticalInput;
 
-    private bool standing, wakeUp, sitUp, standUp;
+    public bool standing, fadeOut;
+    private bool wakeUp, sitUp, standUp;
 
     void Start()
     {
@@ -69,6 +70,9 @@ public class PlayerController : MonoBehaviour
 
         if (standUp)
             transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * 1.5f, transform.position.z);
+
+        if (fadeOut && fadeIn.color.a <= 1)
+            fadeIn.color = new Color(0, 0, 0, fadeIn.color.a + Time.deltaTime / 2.5f);
     }
 
     private IEnumerator getUp()
