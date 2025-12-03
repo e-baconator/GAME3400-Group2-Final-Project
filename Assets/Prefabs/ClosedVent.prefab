@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 86880729382265857}
   - component: {fileID: 228111894458627961}
   - component: {fileID: 1324937931819746918}
-  - component: {fileID: 2855532899294894904}
   m_Layer: 0
   m_Name: Darkness
   m_TagString: Untagged
@@ -182,7 +181,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000029802322, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02000001, y: 0.5813, z: 0.8896027}
+  m_LocalScale: {x: 0.11616091, y: 0.5813, z: 0.8896027}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4800699091225653523}
@@ -244,24 +243,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2855532899294894904
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8492187958350007726}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
