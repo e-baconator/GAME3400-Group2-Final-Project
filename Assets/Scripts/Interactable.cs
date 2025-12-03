@@ -214,12 +214,12 @@ public class Interactable : MonoBehaviour
             }
         }
 
-        if (obj == "Baby Alien" && carrying)
+        if ((obj == "Baby Alien" || obj == "Baby Alien 2") && carrying)
         {
             babySound -= Time.deltaTime;
             if (babySound <= 0)
             {
-                source.clip = iclips[Random.Range(0, 1)];
+                source.clip = iclips[Random.Range(0, 2)];
                 source.Play();
                 babySound = 15;
             }

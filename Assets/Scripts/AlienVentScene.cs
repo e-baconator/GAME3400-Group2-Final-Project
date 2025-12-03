@@ -7,8 +7,8 @@ public class AlienVentScene : MonoBehaviour
     [SerializeField] private GameObject babyAlien;
     [SerializeField] private Transform ventLid;
 
-    private Vector3 babyStartPoint = new Vector3(-21.9759998f, 0.547999978f, 4.31899977f);
-    private Vector3 alienTargetPoint = new Vector3(-21.9759998f, 0.547999978f, 2.86299992f);
+    private Vector3 babyStartPoint = new Vector3(-21.9759998f, 0.347999978f, 4.81899977f);
+    private Vector3 alienTargetPoint = new Vector3(-21.9759998f, 0.347999978f, 2.86299992f);
 
     private float lidOpenAngle = 90f;
     private float lidAnimationSpeed = 2f;
@@ -21,7 +21,7 @@ public class AlienVentScene : MonoBehaviour
     void Start()
     {
         lidClosedRotation = ventLid.rotation;
-        lidOpenRotation = lidClosedRotation * Quaternion.Euler(lidOpenAngle, 0, 0);
+        lidOpenRotation = lidClosedRotation * Quaternion.Euler(0, 0, -lidOpenAngle);
     }
 
     public IEnumerator AlienEnterVentSequence()
@@ -39,7 +39,7 @@ public class AlienVentScene : MonoBehaviour
         yield return StartCoroutine(CloseVent());
 
         babyAlien.transform.localRotation = Quaternion.Euler(0, 354.157715f, 0);
-        babyAlien.transform.position = new Vector3(-22.5979996f, -0.31400001f, 3.41599989f);
+        babyAlien.transform.position = new Vector3(-22.5979996f, -0.171f, 3.41599989f);
         babyAlien.GetComponent<Interactable>().activated = false;
         babyAlien.GetComponent<Interactable>().obj = "Baby Alien 2";
     }
