@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Cabinet
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_Parent: {fileID: 2100000, guid: b59840654e8ec51498a246c7735b8fa2, type: 2}
+  m_Parent: {fileID: 2100000, guid: af969124a9c073f4faa15e9a23897b38, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DISABLE_SSR_TRANSPARENT
