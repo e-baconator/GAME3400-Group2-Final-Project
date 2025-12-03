@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.ProBuilder.Shapes;
 
 public class Interactable : MonoBehaviour
@@ -17,11 +18,11 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private string obj;
 
-    private float angle;
+    private float angle, babySound;
 
+    [SerializeField] private bool trigger;
     public bool activated = false;
     private bool carrying, openDoor;
-
     private void Start()
     {
         UIText = GameObject.FindGameObjectWithTag("UIText").GetComponent<TextMeshProUGUI>();
@@ -33,6 +34,7 @@ public class Interactable : MonoBehaviour
             source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
         if (moveable != null)
             angle = moveable.localRotation.y;
+        babySound = 15;
     }
 
     public void Interact()
@@ -67,31 +69,33 @@ public class Interactable : MonoBehaviour
             }
         }
 
-        if (obj == "Gas Mask")
+        if (obj == "Gas Mask" && !activated)
         {
+            activated = true;
             source.Play();
-            Destroy(gameObject);
+            StartCoroutine(NextLine(1, 1, 1, 0));
+            transform.localScale = new Vector3(0, 0, 0);
         }
 
-        if (obj == "babyalien")
+        if (obj == "Baby Alien" && !activated)
         {
-            var audio = GetComponent<BabyAlienAudio>();
-
             if (!rightArm.raised)
             {
                 StartCoroutine(DisplayText());
                 rightArm.active = true;
+                source.Play();
             }
             else
             {
-
-                
+                source.clip = iclips[1];
+                source.Play();
                 transform.parent = rightArm.transform;
-                transform.localPosition = new Vector3(0, -0.68f, 0.033f);
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localPosition = new Vector3(-0.0638479963f, -0.251049995f, -0.233089998f);
+                transform.localRotation = Quaternion.Euler(304.517181f, 291.663849f, 217.653107f);
+                transform.localScale = new Vector3(0.189969525f, 0.189969525f, 0.189969525f);
                 carrying = true;
-                if (audio != null)
-                    audio.PlayPickupSound();
+                activated = true;
+                StartCoroutine(NextLine(2, 1, 2, 0));
             }
         }
 
@@ -111,35 +115,31 @@ public class Interactable : MonoBehaviour
             {
                 source.Play();
                 activated = true;
+                StartCoroutine(NextLine(1, 1, 1, 0));
             }
         }
+
         if (obj == "Vent")
         {
-            if (!rightArm.raised)
+            if (carrying)
             {
-                StartCoroutine(DisplayText());
-                rightArm.active = true;
+                transform.parent = null;
+                carrying = false;
             }
-         else
-            {
-                if (carrying)
-                {
-                    var alienAudio = rightArm.GetComponentInChildren<BabyAlienAudio>();
-                    if (alienAudio != null)
-                        alienAudio.PlayDropSound();
+        }
 
-                    transform.parent = null;
-                    carrying = false;
-                }
+        if (obj == "Cry Trigger")
+        {
+            source.Play();
+            StartCoroutine(NextLine(2, 2, 1, 2));
+            activated = true;
+        }
 
-                /*else
-                {
-                    play dialogue that says I'm too big for that
-                } 
-                */
-            }
-
-
+        if (obj == "Roar Trigger")
+        {
+            source.Play();
+            StartCoroutine(NextLine(4, 1, 1, 0));
+            activated = true;
         }
     }
 
@@ -164,6 +164,17 @@ public class Interactable : MonoBehaviour
                 openDoor = false;
             }
         }
+
+        if (obj == "Baby Alien" && carrying)
+        {
+            babySound -= Time.deltaTime;
+            if (babySound <= 0)
+            {
+                source.clip = iclips[Random.Range(0, 1)];
+                source.Play();
+                babySound = 15;
+            }
+        }
     }
 
     private IEnumerator DisplayText()
@@ -174,9 +185,23 @@ public class Interactable : MonoBehaviour
             UIText.text = "";
     }
 
-    private void OnMouseDown()
+    private IEnumerator NextLine(int t, int n, int s, int d)
     {
-        if (obj == "babyalien")
+        while (n > 0)
+        {
+            yield return new WaitForSeconds(t);
+            source.pitch = 1;
+            source.clip = iclips[s];
+            source.Play();
+            s++;
+            n--;
+            t += d;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (trigger && !activated && other.gameObject.CompareTag("MainCamera"))
         {
             Interact();
         }

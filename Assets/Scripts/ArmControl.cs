@@ -1,18 +1,21 @@
 using System;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArmControl : MonoBehaviour
 {
     [SerializeField] private string key;
 
+    [SerializeField] private AudioClip ermDidThatJustHappen;
+
     private Transform arm;
     
     private float angle = -50;
 
     public bool raised = false;
-    private bool moving = false;
     public bool active = true;
+    private bool moving, soundPlayed = false;
 
     private void Start()
     {
@@ -26,6 +29,12 @@ public class ArmControl : MonoBehaviour
         if (Input.GetKeyDown(key) && !moving && active)
         {
             moving = true;
+            if (key == "e" && soundPlayed == false)
+            {
+                soundPlayed = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().clip = ermDidThatJustHappen;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().Play();
+            }
         }
 
         if (moving)

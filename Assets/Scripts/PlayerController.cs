@@ -8,9 +8,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Image fadeIn;
 
+    [SerializeField] private AudioClip[] voice;
     [SerializeField] private Transform cameraTransform;
     private Rigidbody rb;
     private CapsuleCollider cc;
+    private AudioSource audio;
 
     public float lookSense = 1.5f;
     private float moveSpeed = 5.5f;
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        audio = GetComponent<AudioSource>();
+        audio.clip = voice[0];
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -73,6 +77,7 @@ public class PlayerController : MonoBehaviour
         wakeUp = true;
         yield return new WaitForSeconds(2.5f);
         wakeUp = false;
+        audio.Play();
         yield return new WaitForSeconds(3);
         sitUp = true;
         yield return new WaitForSeconds(.75f);
@@ -85,5 +90,7 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = false;
         cc.enabled = true;
         standing = true;
+        audio.clip = voice[1];
+        audio.Play();
     }
 }
